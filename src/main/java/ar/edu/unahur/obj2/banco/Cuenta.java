@@ -3,6 +3,7 @@ package ar.edu.unahur.obj2.banco;
 public class Cuenta {
     private final Integer numero;
     private Double saldo;
+    private List<IObservador> observadores = new ArrayList<>;
 
     public Cuenta(Integer numero, Double saldo) {
         this.numero = numero;
@@ -19,10 +20,24 @@ public class Cuenta {
 
     public void depositar(Double monto){
         this.saldo += monto;
+        notificar("DEPOSITO", MONTO)
     }
 
     public void retirar(Double monto){
         this.saldo -= monto;
+        notificar("RETIRO", monto);
+    }
+
+    public void agregarObservador(IObservador observador){
+        observadores.add(observador);
+    }
+
+    public void quitarObservador(IObservador observador){
+        observadores.remove(observador);
+    }
+
+    public void notificar(String operacion, Double monto){
+        observadores.forEach(o -> o.notificar(this, operacion, monto));
     }
 
 }

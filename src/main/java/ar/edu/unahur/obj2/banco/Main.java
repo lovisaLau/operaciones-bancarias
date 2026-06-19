@@ -10,6 +10,9 @@ public class Main {
     public static void main(String[] args) {
         Cuenta cuenta = new Cuenta(1234, 10000.00);
 
+        cuenta.agregarObservador(new Auditoria());
+        cuenta.agregarObservador(new NotificacionCliente());
+
         //Ejecucion individual
         //Deposito 70000
         // Retiro 5000
